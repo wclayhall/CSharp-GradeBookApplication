@@ -5,11 +5,11 @@ using GradeBook.Enums;
 
 namespace GradeBook.GradeBooks
 {
-    class RankedGradeBook : BaseGradeBook
+    public class RankedGradeBook : BaseGradeBook
     {
         public RankedGradeBook(string name) : base(name)
         {
-            this.Type = GradebookType.Ranked;
+            this.Type = GradeBookType.Ranked;
         }
     }
 }
