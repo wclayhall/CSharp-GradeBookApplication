@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GradeBook.Enums;
+using System;
 using System.Linq;
-using System.Text;
-using GradeBook.Enums;
 
 namespace GradeBook.GradeBooks
 {
@@ -15,12 +13,12 @@ namespace GradeBook.GradeBooks
 
         public override char GetLetterGrade(double averageGrade)
         {
-            if(this.Students.Count <5)
+            if (this.Students.Count < 5)
             {
                 throw new InvalidOperationException("Ranked Grading requires 5 or more students.");
             }
 
-            var numToDrop = (int)Math.Ceiling(this.Students.Count * 0.2) ;
+            var numToDrop = (int)Math.Ceiling(this.Students.Count * 0.2);
             var grades = Students.OrderByDescending(e => e.AverageGrade).Select(e => e.AverageGrade).ToList();
 
             if (grades[numToDrop - 1] <= averageGrade)
@@ -33,6 +31,26 @@ namespace GradeBook.GradeBooks
                 return 'D';
 
             return 'F';
+        }
+
+        public override void CalculateStatistics()
+        {
+            if (this.Students.Count < 5)
+            {
+                throw new InvalidOperationException("Ranked grading requires at least 5 students with grades in order to properly calculate a student's overall grade.");
+            }
+
+            base.CalculateStatistics();
+        }
+
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (this.Students.Count < 5)
+            {
+                throw new InvalidOperationException("Ranked grading requires at least 5 students with grades in order to properly calculate a student's overall grade.");
+            }
+
+            base.CalculateStudentStatistics(name);
         }
     }
 }
